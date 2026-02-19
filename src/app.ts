@@ -1,4 +1,4 @@
-import express, { Request, Response, NextFunction } from "express";
+import express, { Application, Request, Response } from "express";
 import helmet from "helmet";
 import dotenv from "dotenv";
 
@@ -6,13 +6,14 @@ import { router } from "./router";
 
 dotenv.config();
 
-const app = express();
-// 1. Security Middleware
-app.use(helmet()); // Sets various HTTP headers for security
-app.use(express.json()); // Parses incoming JSON requests
-app.use(express.urlencoded({ extended: true })); // Parses URL-encoded data
+const app: Application = express();
 
-// base routes
+// 1. Security Middleware
+app.use(helmet());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// 2. routes
 app.get("/", (req: Request, res: Response) => {
   res.status(200).json({ message: "Server is running smoothly!" });
 });
@@ -21,7 +22,7 @@ app.get("/heartbeat", (req: Request, res: Response): void => {
   res.send("beating");
   return;
 });
+app.use("/v1", router);
 
-app.get("/v1", router);
 
 export { app };
