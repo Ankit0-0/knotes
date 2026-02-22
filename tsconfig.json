@@ -3,7 +3,7 @@
     "target": "es2022",
     "outDir": "./build",
     "module": "commonjs",
-    "types": ["node"],
+    "types": ["node", "express"],
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
